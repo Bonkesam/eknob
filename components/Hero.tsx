@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
+      <div className="max-w-7xl mx-auto px-8 lg:px-10 py-20 lg:py-24">
         
         {/* Main Title - Full Width Impact */}
         <div className="hero-main-title text-center mb-16 md:mb-20 lg:mb-32">

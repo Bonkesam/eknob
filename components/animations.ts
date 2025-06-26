@@ -144,66 +144,51 @@ export class EknobAnimations {
     });
   }
 
-  // FIXED: Horizontal Scroll Section - Clean & Reliable
-  static horizontalScroll(container: string, items: string) {
-    const containerEl = document.querySelector(container) as HTMLElement;
-    const itemsEl = document.querySelectorAll(items);
-    
-    if (!containerEl || !itemsEl.length) return;
-    
-    // Calculate total width more reliably
-    const getScrollWidth = () => {
-      return Array.from(itemsEl).reduce((acc, item) => {
-        const itemEl = item as HTMLElement;
-        const styles = window.getComputedStyle(itemEl);
-        const marginLeft = parseFloat(styles.marginLeft) || 0;
-        const marginRight = parseFloat(styles.marginRight) || 0;
-        return acc + itemEl.offsetWidth + marginLeft + marginRight;
-      }, 0);
-    };
+// Final Fixed Horizontal Scroll Section
+static horizontalScroll(container: string, items: string) {
+  const containerEl = document.querySelector(container) as HTMLElement;
+  const itemsEl = document.querySelectorAll(items);
 
-    const totalWidth = getScrollWidth();
-    const viewportWidth = window.innerWidth;
-    
-    // Only proceed if there's actual horizontal overflow
-    if (totalWidth <= viewportWidth) {
-      console.warn('Horizontal scroll: Content fits in viewport, no scroll needed');
-      return;
-    }
+  if (!containerEl || !itemsEl.length) return;
 
-    const scrollDistance = totalWidth - viewportWidth;
-    
-    let scrollTriggerInstance: ScrollTrigger | null = null;
+  const getScrollWidth = () => {
+    return Array.from(itemsEl).reduce((acc, item) => {
+      const el = item as HTMLElement;
+      const style = window.getComputedStyle(el);
+      const margin = parseFloat(style.marginLeft || '0') + parseFloat(style.marginRight || '0');
+      return acc + el.offsetWidth + margin;
+    }, 0);
+  };
 
-    const tween = gsap.to(items, {
-      xPercent: -100 * (itemsEl.length - 1),
-      ease: "none",
-      scrollTrigger: {
-        trigger: container,
-        pin: true,
-        scrub: 1,
-        start: "top top",
-        end: `+=${scrollDistance}`,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onRefresh: () => {
-          // Recalculate on window resize
-          const newTotalWidth = getScrollWidth();
-          const newViewportWidth = window.innerWidth;
-          const newScrollDistance = newTotalWidth - newViewportWidth;
-          
-          if (newScrollDistance > 0 && scrollTriggerInstance) {
-            scrollTriggerInstance.refresh();
-          }
-        }
+  const totalWidth = getScrollWidth();
+
+  // Important: Use totalWidth as scroll distance to mimic original behavior
+  const scrollDistance = totalWidth;
+
+  let scrollTriggerInstance: ScrollTrigger | null = null;
+
+  const tween = gsap.to(items, {
+    x: () => `-${scrollDistance - window.innerWidth}px`,
+    ease: "none",
+    scrollTrigger: {
+      trigger: container,
+      pin: true,
+      scrub: 1,
+      start: "top top",
+      end: () => `+=${scrollDistance}`,
+      invalidateOnRefresh: true,
+      anticipatePin: 1,
+      onRefresh: () => {
+        if (scrollTriggerInstance) scrollTriggerInstance.refresh();
       }
-    });
+    }
+  });
 
-    // Store the ScrollTrigger instance for later use
-    scrollTriggerInstance = tween.scrollTrigger as ScrollTrigger;
+  scrollTriggerInstance = tween.scrollTrigger as ScrollTrigger;
 
-    return tween;
-  }
+  return tween;
+}
+
 
   // ALTERNATIVE: Container-based horizontal scroll (more reliable for complex layouts)
   static horizontalScrollContainer(container: string, wrapper: string, options: any = {}) {

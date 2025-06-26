@@ -15,6 +15,25 @@ const Navigation: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Smooth scroll to section function
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Get Lenis instance from window if available
+      const lenis = (window as any).lenis;
+      if (lenis) {
+        lenis.scrollTo(element.offsetTop);
+      } else {
+        // Fallback to smooth scroll
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+    setIsMenuOpen(false);
+  };
+
   useEffect(() => {
     if (burgerRef.current) {
       EknobAnimations.magneticHover('.burger-menu', 0.2);
@@ -78,42 +97,65 @@ const Navigation: React.FC = () => {
   }, [isMenuOpen]);
 
   const menuItems = [
-    { name: 'Collections', href: '#collections' },
-    { name: 'Craftsmanship', href: '#craftsmanship' },
-    { name: 'Heritage', href: '#heritage' },
-    { name: 'Atelier', href: '#atelier' },
-    { name: 'Experience', href: '#experience' }
+    { name: 'Collections', sectionId: 'collections' },
+    { name: 'Craftsmanship', sectionId: 'craftsmanship' },
+    { name: 'Philosophy', sectionId: 'philosophy' },
+    { name: 'Testimonials', sectionId: 'testimonials' },
+    { name: 'Contact', sectionId: 'contact' }
   ];
 
   return (
     <>
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+        
+        .modern-sans {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .display-sans {
+          font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+      `}</style>
+
       {/* Fixed Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
-          {/* Logo */}
-          <div className="text-2xl font-light tracking-[0.2em] text-white">
+          {/* Logo - Dynamic color based on menu state */}
+          <div 
+            className={`text-2xl font-light tracking-[0.2em] transition-colors duration-300 cursor-pointer display-sans ${
+              isMenuOpen ? 'text-white' : 'text-black'
+            }`}
+            onClick={() => scrollToSection('hero')}
+          >
             EKNOB
           </div>
 
-          {/* Burger Menu */}
+          {/* Burger Menu - Dynamic color based on menu state */}
           <div
             ref={burgerRef}
             className="burger-menu cursor-pointer relative w-8 h-8 flex flex-col justify-center items-center group"
             onClick={toggleMenu}
           >
             <span 
-              className={`block h-0.5 w-6 bg-white transition-all duration-300 ${
-                isMenuOpen ? 'rotate-45 translate-y-0.5' : ''
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                isMenuOpen 
+                  ? 'bg-white rotate-45 translate-y-0.5' 
+                  : 'bg-black'
               }`}
             />
             <span 
-              className={`block h-0.5 w-6 bg-white transition-all duration-300 mt-1.5 ${
-                isMenuOpen ? 'opacity-0' : ''
+              className={`block h-0.5 w-6 transition-all duration-300 mt-1.5 ${
+                isMenuOpen 
+                  ? 'bg-white opacity-0' 
+                  : 'bg-black'
               }`}
             />
             <span 
-              className={`block h-0.5 w-6 bg-white transition-all duration-300 mt-1.5 ${
-                isMenuOpen ? '-rotate-45 -translate-y-2' : ''
+              className={`block h-0.5 w-6 transition-all duration-300 mt-1.5 ${
+                isMenuOpen 
+                  ? 'bg-white -rotate-45 -translate-y-2' 
+                  : 'bg-black'
               }`}
             />
           </div>
@@ -148,10 +190,9 @@ const Navigation: React.FC = () => {
             <div className="space-y-6">
               {menuItems.map((item, index) => (
                 <div key={item.name} className="menu-item overflow-hidden">
-                  <a
-                    href={item.href}
-                    className="block text-4xl md:text-6xl lg:text-6xl font-light text-white hover:text-neutral-300 transition-colors duration-500 tracking-wide leading-none uppercase"
-                    onClick={toggleMenu}
+                  <button
+                    className="block text-4xl md:text-6xl lg:text-6xl font-light text-white hover:text-neutral-300 transition-colors duration-500 tracking-wide leading-none uppercase display-sans"
+                    onClick={() => scrollToSection(item.sectionId)}
                     onMouseEnter={(e) => {
                       gsap.to(e.currentTarget, {
                         scale: 1.05,
@@ -168,7 +209,7 @@ const Navigation: React.FC = () => {
                     }}
                   >
                     {item.name}
-                  </a>
+                  </button>
                 </div>
               ))}
             </div>
@@ -176,19 +217,19 @@ const Navigation: React.FC = () => {
             {/* Menu Footer */}
             <div className="absolute bottom-8 md:bottom-20 left-0 right-0 flex flex-col md:flex-row justify-between items-center px-8 md:px-20 space-y-4 md:space-y-0">
               <div className="menu-decoration">
-                <div className="text-xs md:text-sm text-white/60 tracking-widest">
+                <div className="text-xs md:text-sm text-white/60 tracking-widest modern-sans">
                   CRAFTED WITH PRECISION
                 </div>
               </div>
               
               <div className="menu-decoration flex space-x-6 md:space-x-8">
-                <a href="#" className="text-xs md:text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-xs md:text-sm text-white/60 hover:text-white transition-colors modern-sans">
                   Instagram
                 </a>
-                <a href="#" className="text-xs md:text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-xs md:text-sm text-white/60 hover:text-white transition-colors modern-sans">
                   LinkedIn
                 </a>
-                <a href="#" className="text-xs md:text-sm text-white/60 hover:text-white transition-colors">
+                <a href="#" className="text-xs md:text-sm text-white/60 hover:text-white transition-colors modern-sans">
                   Twitter
                 </a>
               </div>

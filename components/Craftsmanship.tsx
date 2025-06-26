@@ -188,7 +188,7 @@ const Craftsmanship: React.FC = () => {
         <div className="floating-element absolute bottom-1/4 right-32 w-1.5 h-1.5 bg-black/5 rounded-full" />
 
         {/* Hero Section */}
-        <div className="pt-10 pb-15">
+        <div className="pt-20 pb-15">
           <div className="max-w-7xl mx-auto px-8">
             
             {/* Main Heading */}
