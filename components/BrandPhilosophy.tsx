@@ -6,43 +6,41 @@ import { EknobAnimations } from './animations';
 
 const BrandPhilosophy: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const scrambleRef = useRef<HTMLDivElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Scroll-triggered reveals
+    // Elegant reveal animations
     EknobAnimations.revealOnScroll('.philosophy-reveal', {
-      y: 100,
-      duration: 1.8,
-      stagger: 0.3
+      y: 60,
+      duration: 1.6,
+      stagger: 0.2,
+      ease: "power3.out"
     });
 
-    // Text scramble effect - keeping the original animation
-    const scrambleObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && scrambleRef.current) {
-          EknobAnimations.scrambleText(scrambleRef.current, 'THE PHILOSOPHY OF CRAFTSMANSHIP');
-        }
-      });
-    }, { threshold: 0.5 });
-
-    if (scrambleRef.current) {
-      scrambleObserver.observe(scrambleRef.current);
-    }
-
-    // Restore original horizontal scroll functionality
-    if (horizontalRef.current) {
-      EknobAnimations.horizontalScroll('.horizontal-container', '.horizontal-item');
-    }
-
-    // Luxury reveals for individual elements
+    // Luxury reveals for main sections
     EknobAnimations.luxuryReveal('.luxury-reveal-1', 0.2);
     EknobAnimations.luxuryReveal('.luxury-reveal-2', 0.4);
     EknobAnimations.luxuryReveal('.luxury-reveal-3', 0.6);
 
-    return () => {
-      scrambleObserver.disconnect();
-    };
+    // Clip path reveals for images
+    EknobAnimations.clipPathReveal('.image-reveal-1', 'left');
+    EknobAnimations.clipPathReveal('.image-reveal-2', 'right');
+    EknobAnimations.clipPathReveal('.image-reveal-3', 'left');
+    EknobAnimations.clipPathReveal('.image-reveal-4', 'right');
+
+    // Parallax for decorative elements
+    EknobAnimations.parallaxDepth('.parallax-slow', 0.3);
+    EknobAnimations.parallaxDepth('.parallax-medium', 0.5);
+
+    // Floating elements for quotes
+    EknobAnimations.floatingElements('.floating-quote', 8);
+
+    // Magnetic hover effects for value cards
+    EknobAnimations.magneticHover('.value-card-1', 0.1);
+    EknobAnimations.magneticHover('.value-card-2', 0.1);
+    EknobAnimations.magneticHover('.value-card-3', 0.1);
+    EknobAnimations.magneticHover('.value-card-4', 0.1);
+
   }, []);
 
   const philosophyValues = [
@@ -93,11 +91,6 @@ const BrandPhilosophy: React.FC = () => {
           line-height: 0.85;
           letter-spacing: -0.02em;
         }
-        
-        .full-width-title {
-          width: 100vw;
-          margin-left: calc(-50vw + 50%);
-        }
       `}</style>
 
       <section 
@@ -105,7 +98,7 @@ const BrandPhilosophy: React.FC = () => {
         className="relative bg-white overflow-hidden modern-sans"
       >
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-5 parallax-slow">
           <div className="absolute top-0 left-0 w-full h-full"
             style={{
               backgroundImage: `radial-gradient(circle at 25% 25%, #000 1px, transparent 1px)`,
@@ -120,7 +113,7 @@ const BrandPhilosophy: React.FC = () => {
             <div className="text-center mb-16">
               <div className="philosophy-reveal overflow-hidden mb-4">
                 <h2 
-                  ref={scrambleRef}
+                  ref={titleRef}
                   className="philosophy-title display-sans font-light text-black tracking-tight whitespace-nowrap"
                 >
                   THE PHILOSOPHY OF CRAFTSMANSHIP
@@ -138,8 +131,11 @@ const BrandPhilosophy: React.FC = () => {
             </div>
 
             {/* Core Values Quote */}
-            <div className="luxury-reveal-1 text-center mb-3">
-              <div className="max-w-5xl mx-auto">
+            <div className="luxury-reveal-1 text-center mb-20">
+              <div className="max-w-5xl mx-auto relative">
+                <div className="floating-quote absolute -top-8 -left-8 text-[180px] font-light text-black/4 pointer-events-none display-sans">
+                  "
+                </div>
                 <blockquote className="text-4xl md:text-5xl font-light text-black leading-tight tracking-wide display-sans">
                   "We don't create fashion.<br/>
                   <span className="italic">We architect legacies.</span>"
@@ -152,40 +148,40 @@ const BrandPhilosophy: React.FC = () => {
           </div>
         </div>
 
-        {/* Horizontal Scroll Values Section - Properly Fixed */}
-        <div className="luxury-reveal-2 mb-15">
-          <div 
-            ref={horizontalRef}
-            className="horizontal-container relative"
-            style={{ height: '100vh' }}
-          >
-            <div className="flex space-x-8 h-full">
+        {/* Philosophy Values Grid */}
+        <div className="luxury-reveal-2 py-20">
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
               {philosophyValues.map((value, index) => (
                 <div 
                   key={value.title}
-                  className="horizontal-item flex-shrink-0 w-[80vw] md:w-[60vw] h-full flex items-center"
+                  className={`value-card-${index + 1} group cursor-pointer`}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full">
-                    {/* Text Content */}
-                    <div className="flex flex-col justify-center">
-                      <h3 className="text-5xl md:text-6xl display-sans font-light text-black mb-8 tracking-tight">
-                        {value.title}
-                      </h3>
-                      <p className="text-lg md:text-xl text-black/70 font-light leading-relaxed mb-8 modern-sans">
-                        {value.description}
-                      </p>
-                      <div className="w-24 h-px bg-black/20" />
-                    </div>
-
+                  <div className="space-y-8">
                     {/* Image */}
-                    <div className="relative">
-                      <div className="aspect-[4/5] bg-black/5 overflow-hidden">
+                    <div className="relative overflow-hidden">
+                      <div className={`image-reveal-${index + 1} aspect-[4/3] bg-black/5`}>
                         <img 
                           src={value.image}
                           alt={value.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
+                      {/* Subtle overlay on hover */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="space-y-6">
+                      <h3 className="text-4xl md:text-5xl display-sans font-light text-black tracking-tight group-hover:text-black/80 transition-colors duration-300">
+                        {value.title}
+                      </h3>
+                      
+                      <div className="w-16 h-px bg-black/20 group-hover:w-24 transition-all duration-300" />
+                      
+                      <p className="text-lg text-black/70 font-light leading-relaxed modern-sans">
+                        {value.description}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -195,8 +191,8 @@ const BrandPhilosophy: React.FC = () => {
         </div>
 
         {/* Manifesto Section */}
-        <div className="py-10">
-          <div className="max-w-7xl mx-auto px-8">
+        <div className="py-32">
+          <div className="max-w-7xl mx-auto px-8 relative">
             <div className="luxury-reveal-3">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
                 
@@ -239,20 +235,20 @@ const BrandPhilosophy: React.FC = () => {
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute top-1/2 left-8 transform -translate-y-1/2">
+            <div className="absolute top-1/2 left-8 transform -translate-y-1/2 parallax-medium">
               <div className="w-px h-64 bg-gradient-to-b from-transparent via-black/20 to-transparent" />
             </div>
             
-            <div className="absolute top-1/2 right-8 transform -translate-y-1/2">
+            <div className="absolute top-1/2 right-8 transform -translate-y-1/2 parallax-medium">
               <div className="w-px h-64 bg-gradient-to-b from-transparent via-black/20 to-transparent" />
             </div>
 
             {/* Floating Numbers */}
-            <div className="absolute top-20 right-20 text-[200px] font-thin text-black/5 pointer-events-none display-sans">
+            <div className="absolute top-20 right-20 text-[200px] font-thin text-black/5 pointer-events-none display-sans parallax-slow">
               01
             </div>
             
-            <div className="absolute bottom-20 left-20 text-[200px] font-thin text-black/5 pointer-events-none display-sans">
+            <div className="absolute bottom-20 left-20 text-[200px] font-thin text-black/5 pointer-events-none display-sans parallax-slow">
               02
             </div>
           </div>

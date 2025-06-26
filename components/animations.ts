@@ -144,109 +144,127 @@ export class EknobAnimations {
     });
   }
 
-// Final Fixed Horizontal Scroll Section
-static horizontalScroll(container: string, items: string) {
+  // Horizontal Scroll Section
+// Fixed Horizontal Scroll Section
+static horizontalScroll(container: string, sections: string) {
   const containerEl = document.querySelector(container) as HTMLElement;
-  const itemsEl = document.querySelectorAll(items);
+  const sectionsEl = document.querySelectorAll(sections);
+  
+  if (!containerEl || !sectionsEl.length) return;
 
-  if (!containerEl || !itemsEl.length) return;
-
-  const getScrollWidth = () => {
-    return Array.from(itemsEl).reduce((acc, item) => {
-      const el = item as HTMLElement;
-      const style = window.getComputedStyle(el);
-      const margin = parseFloat(style.marginLeft || '0') + parseFloat(style.marginRight || '0');
-      return acc + el.offsetWidth + margin;
-    }, 0);
-  };
-
-  const totalWidth = getScrollWidth();
-
-  // Important: Use totalWidth as scroll distance to mimic original behavior
-  const scrollDistance = totalWidth;
-
-  let scrollTriggerInstance: ScrollTrigger | null = null;
-
-  const tween = gsap.to(items, {
-    x: () => `-${scrollDistance - window.innerWidth}px`,
+  // Create a wrapper that will move horizontally
+  const sectionsArray = Array.from(sectionsEl);
+  
+  // Set up the horizontal scroll animation
+  const horizontalTween = gsap.to(sectionsArray, {
+    xPercent: -100 * (sectionsArray.length - 1),
     ease: "none",
     scrollTrigger: {
       trigger: container,
       pin: true,
       scrub: 1,
       start: "top top",
-      end: () => `+=${scrollDistance}`,
+      end: () => `+=${containerEl.scrollWidth - window.innerWidth}`,
       invalidateOnRefresh: true,
       anticipatePin: 1,
-      onRefresh: () => {
-        if (scrollTriggerInstance) scrollTriggerInstance.refresh();
+      onUpdate: (self) => {
+        // Optional: Add debug info
+        // console.log('Progress:', self.progress);
       }
     }
   });
 
-  scrollTriggerInstance = tween.scrollTrigger as ScrollTrigger;
+  return horizontalTween;
+}
+
+// Alternative improved version with better control
+static horizontalScrollImproved(container: string, sections: string, options: any = {}) {
+  const containerEl = document.querySelector(container) as HTMLElement;
+  const sectionsEl = document.querySelectorAll(sections);
+  
+  if (!containerEl || !sectionsEl.length) return;
+
+  const defaults = {
+    speed: 1,
+    snap: false,
+    ...options
+  };
+
+  // Calculate total scroll distance
+  let totalWidth = 0;
+  sectionsEl.forEach((section: Element) => {
+    totalWidth += (section as HTMLElement).offsetWidth;
+  });
+
+  const scrollDistance = totalWidth - window.innerWidth;
+
+  // Create the animation
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: container,
+      pin: true,
+      scrub: defaults.speed,
+      start: "top top",
+      end: `+=${scrollDistance}`,
+      snap: defaults.snap ? {
+        snapTo: 1 / (sectionsEl.length - 1),
+        duration: 0.5,
+        delay: 0.1
+      } : undefined,
+      invalidateOnRefresh: true,
+      anticipatePin: 1
+    }
+  });
+
+  // Animate each section individually for better control
+  sectionsEl.forEach((section, index) => {
+    if (index === 0) return; // Skip the first section
+    
+    tl.to(section, {
+      x: -totalWidth + window.innerWidth,
+      duration: 1,
+      ease: "none"
+    }, 0);
+  });
+
+  return tl;
+}
+
+// Even better: Container-based horizontal scroll
+static horizontalScrollContainer(container: string, wrapper: string) {
+  const containerEl = document.querySelector(container) as HTMLElement;
+  const wrapperEl = document.querySelector(wrapper) as HTMLElement;
+  
+  if (!containerEl || !wrapperEl) return;
+
+  // Get the scroll width
+  const scrollWidth = wrapperEl.scrollWidth;
+  const viewportWidth = window.innerWidth;
+  const scrollDistance = scrollWidth - viewportWidth;
+
+  const tween = gsap.to(wrapperEl, {
+    x: -scrollDistance,
+    ease: "none",
+    scrollTrigger: {
+      trigger: container,
+      pin: true,
+      scrub: 1,
+      start: "top top",
+      end: `+=${scrollDistance}`,
+      invalidateOnRefresh: true,
+      onRefresh: () => {
+        // Recalculate on window resize
+        const newScrollWidth = wrapperEl.scrollWidth;
+        const newViewportWidth = window.innerWidth;
+        const newScrollDistance = newScrollWidth - newViewportWidth;
+        tween.vars.x = -newScrollDistance;
+        tween.invalidate();
+      }
+    }
+  });
 
   return tween;
 }
-
-
-  // ALTERNATIVE: Container-based horizontal scroll (more reliable for complex layouts)
-  static horizontalScrollContainer(container: string, wrapper: string, options: any = {}) {
-    const containerEl = document.querySelector(container) as HTMLElement;
-    const wrapperEl = document.querySelector(wrapper) as HTMLElement;
-    
-    if (!containerEl || !wrapperEl) return;
-
-    const defaults = {
-      scrub: 1,
-      snap: false,
-      ...options
-    };
-
-    // Force wrapper to be flex for proper width calculation
-    gsap.set(wrapperEl, { display: 'flex', flexWrap: 'nowrap' });
-
-    const getScrollDistance = () => {
-      const scrollWidth = wrapperEl.scrollWidth;
-      const viewportWidth = containerEl.offsetWidth || window.innerWidth;
-      return Math.max(0, scrollWidth - viewportWidth);
-    };
-
-    let scrollDistance = getScrollDistance();
-
-    if (scrollDistance <= 0) {
-      console.warn('Horizontal scroll container: No overflow detected');
-      return;
-    }
-
-    const tween = gsap.to(wrapperEl, {
-      x: -scrollDistance,
-      ease: "none",
-      scrollTrigger: {
-        trigger: container,
-        pin: true,
-        scrub: defaults.scrub,
-        start: "top top",
-        end: `+=${scrollDistance}`,
-        snap: defaults.snap ? {
-          snapTo: "labels",
-          duration: 0.5,
-          delay: 0.1
-        } : undefined,
-        invalidateOnRefresh: true,
-        anticipatePin: 1,
-        onRefresh: () => {
-          scrollDistance = getScrollDistance();
-          if (scrollDistance > 0) {
-            tween.vars.x = -scrollDistance;
-            tween.invalidate();
-          }
-        }
-      }
-    });
-
-    return tween;
-  }
 
   // Enhanced Number Counter Animation
   static countUp(element: string, target: number, duration: number = 2) {

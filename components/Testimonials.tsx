@@ -6,33 +6,39 @@ import { EknobAnimations } from './animations';
 
 const Testimonials: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const horizontalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Scroll-triggered reveals
+    // Elegant scroll-triggered reveals
     EknobAnimations.revealOnScroll('.testimonial-reveal', {
       y: 60,
       duration: 1.4,
-      stagger: 0.2
+      stagger: 0.2,
+      ease: "power3.out"
     });
 
-    // Horizontal scroll for testimonials
-    if (horizontalRef.current) {
-      EknobAnimations.horizontalScroll('.testimonials-horizontal-container', '.testimonial-horizontal-item');
-    }
-
-    // Luxury reveals for individual sections
+    // Luxury reveals for different sections
     EknobAnimations.luxuryReveal('.luxury-testimonial-1', 0.2);
     EknobAnimations.luxuryReveal('.luxury-testimonial-2', 0.4);
     EknobAnimations.luxuryReveal('.luxury-testimonial-3', 0.6);
 
+    // Clip path reveals for testimonial images
+    EknobAnimations.clipPathReveal('.testimonial-image-1', 'left');
+    EknobAnimations.clipPathReveal('.testimonial-image-2', 'right');
+    EknobAnimations.clipPathReveal('.testimonial-image-3', 'left');
+    EknobAnimations.clipPathReveal('.testimonial-image-4', 'right');
+
     // Magnetic hover effects for testimonial cards
-    EknobAnimations.magneticHover('.testimonial-card-1', 0.15);
-    EknobAnimations.magneticHover('.testimonial-card-2', 0.15);
-    EknobAnimations.magneticHover('.testimonial-card-3', 0.15);
+    EknobAnimations.magneticHover('.testimonial-card-1', 0.08);
+    EknobAnimations.magneticHover('.testimonial-card-2', 0.08);
+    EknobAnimations.magneticHover('.testimonial-card-3', 0.08);
+    EknobAnimations.magneticHover('.testimonial-card-4', 0.08);
 
     // Floating elements for decorative quotes
-    EknobAnimations.floatingElements('.floating-quote', 12);
+    EknobAnimations.floatingElements('.floating-quote', 10);
+
+    // Parallax for background elements
+    EknobAnimations.parallaxDepth('.parallax-slow', 0.3);
+    EknobAnimations.parallaxDepth('.parallax-medium', 0.5);
 
   }, []);
 
@@ -126,7 +132,7 @@ const Testimonials: React.FC = () => {
         className="relative bg-white overflow-hidden modern-sans"
       >
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-3">
+        <div className="absolute inset-0 opacity-3 parallax-slow">
           <div className="absolute top-0 left-0 w-full h-full"
             style={{
               backgroundImage: `radial-gradient(circle at 25% 25%, #000 1px, transparent 1px)`,
@@ -180,64 +186,55 @@ const Testimonials: React.FC = () => {
           </div>
         </div>
 
-        {/* Horizontal Scroll Testimonials Section */}
-        <div className="luxury-testimonial-2 mb-32">
-          <div 
-            ref={horizontalRef}
-            className="testimonials-horizontal-container relative"
-            style={{ height: '100vh' }}
-          >
-            <div className="flex space-x-16 h-full">
+        {/* Testimonials Grid Section */}
+        <div className="luxury-testimonial-2 py-20">
+          <div className="max-w-7xl mx-auto px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
               {testimonials.map((testimonial, index) => (
                 <div 
                   key={testimonial.name}
-                  className="testimonial-horizontal-item flex-shrink-0 w-[85vw] md:w-[70vw] h-full flex items-center"
+                  className={`testimonial-card-${index + 1} group cursor-pointer`}
                 >
-                  <div className={`testimonial-card-${index + 1} group cursor-pointer w-full`}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 h-full">
-                      
-                      {/* Quote Content */}
-                      <div className="flex flex-col justify-center space-y-8">
-                        <div className="relative">
-                          <div className="text-[120px] font-light text-black/5 absolute -top-12 -left-4 pointer-events-none display-sans">
-                            "
-                          </div>
-                          <blockquote className="text-2xl md:text-3xl font-light text-black leading-relaxed italic relative z-10 modern-sans">
-                            {testimonial.quote}
-                          </blockquote>
-                        </div>
-                        
-                        <div className="w-24 h-px bg-black/20" />
-                        
-                        <div className="space-y-2">
-                          <h4 className="text-xl font-normal text-black tracking-wide display-sans">
-                            {testimonial.name}
-                          </h4>
-                          <p className="text-base text-black/70 font-light modern-sans">
-                            {testimonial.title}
-                          </p>
-                          <p className="text-sm text-black/50 font-light modern-sans">
-                            {testimonial.company}
-                          </p>
-                          <p className="text-xs text-black/40 font-light tracking-wider mt-2 modern-sans">
-                            {testimonial.location}
-                          </p>
-                        </div>
+                  <div className="space-y-8">
+                    {/* Portrait */}
+                    <div className="relative">
+                      <div className={`testimonial-image-${index + 1} w-full aspect-[4/5] bg-black/5 overflow-hidden`}>
+                        <img 
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
                       </div>
+                      {/* Subtle overlay effect */}
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                    </div>
 
-                      {/* Portrait */}
-                      <div className="flex items-center justify-center">
-                        <div className="relative">
-                          <div className="w-80 h-96 bg-black/5 overflow-hidden">
-                            <img 
-                              src={testimonial.image}
-                              alt={testimonial.name}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                          </div>
-                          {/* Subtle border effect */}
-                          <div className="absolute inset-0 border border-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Quote Content */}
+                    <div className="space-y-6">
+                      <div className="relative">
+                        <div className="text-[80px] font-light text-black/8 absolute -top-6 -left-2 pointer-events-none display-sans">
+                          "
                         </div>
+                        <blockquote className="text-lg md:text-xl font-light text-black leading-relaxed italic relative z-10 modern-sans pl-4">
+                          {testimonial.quote}
+                        </blockquote>
+                      </div>
+                      
+                      <div className="w-16 h-px bg-black/20 group-hover:w-24 transition-all duration-300" />
+                      
+                      <div className="space-y-2">
+                        <h4 className="text-xl font-normal text-black tracking-wide display-sans group-hover:text-black/80 transition-colors duration-300">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-base text-black/70 font-light modern-sans">
+                          {testimonial.title}
+                        </p>
+                        <p className="text-sm text-black/50 font-light modern-sans">
+                          {testimonial.company}
+                        </p>
+                        <p className="text-xs text-black/40 font-light tracking-wider mt-2 modern-sans">
+                          {testimonial.location}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -249,7 +246,7 @@ const Testimonials: React.FC = () => {
 
         {/* Recognition & Awards Section */}
         <div className="py-32">
-          <div className="max-w-7xl mx-auto px-8">
+          <div className="max-w-7xl mx-auto px-8 relative">
             <div className="luxury-testimonial-3">
               <div className="text-center mb-20">
                 <h3 className="text-4xl md:text-5xl font-light text-black tracking-tight mb-8 display-sans">
@@ -280,7 +277,10 @@ const Testimonials: React.FC = () => {
 
             {/* Philosophy Quote */}
             <div className="mt-32 text-center">
-              <div className="max-w-5xl mx-auto">
+              <div className="max-w-5xl mx-auto relative">
+                <div className="floating-quote absolute -top-4 -left-4 text-[120px] font-light text-black/5 pointer-events-none display-sans">
+                  "
+                </div>
                 <blockquote className="text-3xl md:text-4xl font-light text-black leading-tight tracking-wide display-sans mb-8">
                   "Excellence is never an accident.<br/>
                   <span className="italic">It is the result of intention, effort, and execution.</span>"
@@ -290,25 +290,25 @@ const Testimonials: React.FC = () => {
                 </cite>
               </div>
             </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-1/4 left-8 transform -translate-y-1/2 parallax-medium">
+              <div className="w-px h-64 bg-gradient-to-b from-transparent via-black/15 to-transparent" />
+            </div>
+            
+            <div className="absolute top-3/4 right-8 transform -translate-y-1/2 parallax-medium">
+              <div className="w-px h-64 bg-gradient-to-b from-transparent via-black/15 to-transparent" />
+            </div>
+
+            {/* Floating Numbers */}
+            <div className="absolute top-32 right-16 text-[200px] font-thin text-black/4 pointer-events-none display-sans parallax-slow">
+              03
+            </div>
+            
+            <div className="absolute bottom-32 left-16 text-[200px] font-thin text-black/4 pointer-events-none display-sans parallax-slow">
+              04
+            </div>
           </div>
-        </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-1/4 left-8 transform -translate-y-1/2">
-          <div className="w-px h-64 bg-gradient-to-b from-transparent via-black/15 to-transparent" />
-        </div>
-        
-        <div className="absolute top-3/4 right-8 transform -translate-y-1/2">
-          <div className="w-px h-64 bg-gradient-to-b from-transparent via-black/15 to-transparent" />
-        </div>
-
-        {/* Floating Numbers */}
-        <div className="absolute top-32 right-16 text-[200px] font-thin text-black/4 pointer-events-none display-sans">
-          03
-        </div>
-        
-        <div className="absolute bottom-32 left-16 text-[200px] font-thin text-black/4 pointer-events-none display-sans">
-          04
         </div>
       </section>
     </>
