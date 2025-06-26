@@ -116,7 +116,7 @@ const BrandPhilosophy: React.FC = () => {
                   ref={titleRef}
                   className="philosophy-title display-sans font-light text-black tracking-tight whitespace-nowrap"
                 >
-                  THE PHILOSOPHY OF CRAFTSMANSHIP
+                  CRAFTSMANSHIP
                 </h2>
               </div>
 
