@@ -254,7 +254,7 @@ const MainPage: React.FC = () => {
         >
           <div className="text-center">
             <div className="loading-text opacity-0 transform translate-y-8 mb-8">
-              <h1 className="text-4xl md:text-6xl font-light text-white tracking-wider">
+              <h1 className="text-4xl md:text-6xl font-medium text-white tracking-wider">
                 EKNOB
               </h1>
               <p className="text-white/60 font-light tracking-widest mt-4">
