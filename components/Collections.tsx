@@ -41,8 +41,8 @@ const Collections: React.FC = () => {
       title: 'MILANO NOIR',
       subtitle: 'Evening Collection',
       description: 'Where shadows meet silk. Our most coveted pieces for those who command attention without seeking it.',
-      image: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-      pieces: '12 Pieces',
+      image: '/images/evening.jpg',
+      pieces: '19 Pieces',
       season: 'AW 2024',
       price: 'From €2,850'
     },
@@ -50,7 +50,7 @@ const Collections: React.FC = () => {
       title: 'VENETIAN SUMMERS',
       subtitle: 'Resort Collection', 
       description: 'Effortless sophistication inspired by Italian riviera elegance. Lightness that carries weight.',
-      image: 'https://images.unsplash.com/photo-1564859228273-274232fdb516?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      image: '/images/summer.jpg',
       pieces: '18 Pieces',
       season: 'SS 2024',
       price: 'From €1,950'
@@ -59,8 +59,8 @@ const Collections: React.FC = () => {
       title: 'HERITAGE MASTERS',
       subtitle: 'Signature Collection',
       description: 'Our most treasured designs, refined over decades. Each piece a masterclass in timeless sophistication.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-      pieces: '8 Pieces',
+      image: 'images/heritage.jpg',
+      pieces: '18 Pieces',
       season: 'Permanent',
       price: 'From €4,200'
     },
@@ -68,7 +68,7 @@ const Collections: React.FC = () => {
       title: 'URBAN NOMAD',
       subtitle: 'Contemporary Collection',
       description: 'For the modern wanderer who refuses to compromise. Where comfort meets uncompromising style.',
-      image: 'https://images.unsplash.com/photo-1520975954732-35dd22299614?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      image: 'images/urban.jpg',
       pieces: '24 Pieces',
       season: 'Year-round',
       price: 'From €1,450'

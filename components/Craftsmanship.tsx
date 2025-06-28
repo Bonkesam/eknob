@@ -98,7 +98,7 @@ const Craftsmanship: React.FC = () => {
         'Fit and proportion refinement',
         'Creative director approval'
       ],
-      image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+      image: 'images/d.jpg'
     },
     {
       number: '02',
@@ -111,7 +111,7 @@ const Craftsmanship: React.FC = () => {
         'Sustainable sourcing verification',
         'Quality consistency testing'
       ],
-      image: 'https://images.unsplash.com/photo-1574180566232-abb9e3c42333?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+      image: 'images/m.jpg'
     },
     {
       number: '03',
@@ -124,7 +124,7 @@ const Craftsmanship: React.FC = () => {
         'Multiple fit iterations',
         'Size grading perfection'
       ],
-      image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+      image: 'images/p.jpg'
     },
     {
       number: '04',
@@ -137,7 +137,7 @@ const Craftsmanship: React.FC = () => {
         'French seam finishing',
         'Final quality inspection'
       ],
-      image: 'https://images.unsplash.com/photo-1550928431-ee0e4ea6ebdb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+      image: 'images/t.jpg'
     }
   ];
 
@@ -195,15 +195,11 @@ const Craftsmanship: React.FC = () => {
             <div className="text-center mb-16">
               <div className="craft-reveal-1 overflow-hidden mb-6">
                 <h1 className="hero-title display-sans font-light text-black tracking-tight">
-                  ARTISANAL
+                  ARTISANAL<span className=" overflow-hidden mb-12"> MASTERY </span>                       
                 </h1>
               </div>
               
-              <div className="craft-reveal-2 overflow-hidden mb-12">
-                <h1 className="hero-title display-sans font-light text-black tracking-tight">
-                  MASTERY
-                </h1>
-              </div>
+
 
               <div className="craft-reveal-3 max-w-4xl mx-auto">
                 <p className="text-xl md:text-2xl text-black/70 font-light leading-relaxed modern-sans">

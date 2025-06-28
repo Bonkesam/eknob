@@ -47,7 +47,7 @@ const BrandPhilosophy: React.FC = () => {
     {
       title: 'Heritage',
       description: 'Four generations of Italian tailoring mastery, passed down through bloodlines of artisans who understand that true luxury lies in the details invisible to the untrained eye.',
-      image: 'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: 'images/h.jpg'
     },
     {
       title: 'Innovation',
@@ -57,12 +57,12 @@ const BrandPhilosophy: React.FC = () => {
     {
       title: 'Exclusivity',
       description: 'Each Eknob creation is limited to ensure rarity. We believe luxury should be earned, not mass-produced. Our clients don\'t just wear clothing—they carry stories of unparalleled artistry.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: 'images/x.jpg'
     },
     {
       title: 'Sustainability',
       description: 'True luxury respects the earth that provides its materials. We source only the finest ethically-sourced fabrics, ensuring our legacy enriches rather than depletes.',
-      image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+      image: 'images/s.jpg'
     }
   ];
 
@@ -245,11 +245,11 @@ const BrandPhilosophy: React.FC = () => {
 
             {/* Floating Numbers */}
             <div className="absolute top-20 right-20 text-[200px] font-thin text-black/5 pointer-events-none display-sans parallax-slow">
-              01
+              M
             </div>
             
             <div className="absolute bottom-20 left-20 text-[200px] font-thin text-black/5 pointer-events-none display-sans parallax-slow">
-              02
+              E
             </div>
           </div>
         </div>

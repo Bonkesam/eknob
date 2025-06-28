@@ -49,7 +49,7 @@ const Testimonials: React.FC = () => {
       title: "Creative Director",
       company: "Ashworth & Associates",
       location: "Milan",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b922?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: "images/v.jpg"
     },
     {
       quote: "In thirty years of collecting haute couture, I've never encountered such dedication to perfection. Each Eknob piece becomes a treasured heirloom.",
@@ -57,7 +57,7 @@ const Testimonials: React.FC = () => {
       title: "Art Collector & Philanthropist",
       company: "Blackwell Foundation",
       location: "London",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: "images/a.jpg"
     },
     {
       quote: "The moment I wore my first Eknob creation, I understood what true luxury meant. It's not about the price—it's about the soul woven into every thread.",
@@ -65,7 +65,7 @@ const Testimonials: React.FC = () => {
       title: "International Art Curator",
       company: "Chen Gallery",
       location: "New York",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: "images/c.jpg"
     },
     {
       quote: "Eknob represents the pinnacle of Italian craftsmanship. Their pieces don't follow trends—they set the standard for what luxury should be.",
@@ -73,7 +73,7 @@ const Testimonials: React.FC = () => {
       title: "Fashion Editor",
       company: "European Style Magazine",
       location: "Paris",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      image: "images/e.jpg"
     }
   ];
 
