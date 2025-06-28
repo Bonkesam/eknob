@@ -114,7 +114,7 @@ const BrandPhilosophy: React.FC = () => {
               <div className="philosophy-reveal overflow-hidden mb-4">
                 <h2 
                   ref={titleRef}
-                  className="philosophy-title display-sans font-light text-black tracking-tight whitespace-nowrap"
+                  className="philosophy-title display-sans font-medium text-black tracking-tight whitespace-nowrap"
                 >
                   CRAFTSMANSHIP
                 </h2>
@@ -131,7 +131,7 @@ const BrandPhilosophy: React.FC = () => {
             </div>
 
             {/* Core Values Quote */}
-            <div className="luxury-reveal-1 text-center mb-20">
+            <div className="luxury-reveal-1 text-center mb-12">
               <div className="max-w-5xl mx-auto relative">
                 <div className="floating-quote absolute -top-8 -left-8 text-[180px] font-light text-black/4 pointer-events-none display-sans">
                   "
@@ -191,7 +191,7 @@ const BrandPhilosophy: React.FC = () => {
         </div>
 
         {/* Manifesto Section */}
-        <div className="py-32">
+        <div className="py-20">
           <div className="max-w-7xl mx-auto px-8 relative">
             <div className="luxury-reveal-3">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
