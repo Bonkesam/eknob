@@ -105,7 +105,7 @@ const Collections: React.FC = () => {
         <div className="max-w-7xl mx-auto px-8">
           
           {/* Section Header */}
-          <div className="text-center mb-25">
+          <div className="text-center mb-19">
             <div className="collection-reveal overflow-hidden mb-8">
               <h2 
                 className="text-6xl md:text-8xl text-black tracking-tight leading-none"
@@ -275,7 +275,7 @@ const Collections: React.FC = () => {
           </div>
 
           {/* Featured Quote with elegant typography */}
-          <div className="luxury-collection-2 text-center mb-32">
+          <div className="luxury-collection-2 text-center mb-20">
             <div className="max-w-4xl mx-auto">
               <blockquote 
                 className="text-3xl md:text-4xl text-black leading-tight mb-8"

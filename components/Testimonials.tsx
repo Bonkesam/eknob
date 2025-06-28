@@ -168,7 +168,7 @@ const Testimonials: React.FC = () => {
             </div>
 
             {/* Featured Quote */}
-            <div className="luxury-testimonial-1 text-center mb-32">
+            <div className="luxury-testimonial-1 text-center mb-18">
               <div className="max-w-6xl mx-auto relative">
                 {/* Large decorative quote */}
                 <div className="floating-quote absolute -top-8 -left-8 text-[180px] font-light text-black/4 pointer-events-none display-sans">
@@ -245,7 +245,7 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Recognition & Awards Section */}
-        <div className="py-32">
+        <div className="py-20">
           <div className="max-w-7xl mx-auto px-8 relative">
             <div className="luxury-testimonial-3">
               <div className="text-center mb-20">
