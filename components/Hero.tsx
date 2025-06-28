@@ -95,11 +95,11 @@ const Hero: React.FC = () => {
         
         {/* Main Title - Full Width Impact */}
         <div className="hero-main-title text-center mb-16 md:mb-20 lg:mb-32">
-          <h1 className="display-sans text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-light text-gray-900 tracking-tighter leading-[0.85] px-6 md:px-0">
+          <h1 className="display-sans text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-light text-gray-900 tracking-tighter leading-[0.85] px-1 md:px-0">
             Timeless 
             <span className="font-medium ml-2 sm:ml-4 lg:ml-6">Eknob</span>
           </h1>
-          <div className="w-16 sm:w-20 md:w-24 h-px bg-gray-900 mx-auto mt-6 md:mt-8"></div>
+          <div className="w-20 sm:w-20 md:w-40 h-px bg-gray-900 mx-auto mt-6 md:mt-8"></div>
         </div>
 
         {/* Two Column Layout - Mobile Optimized */}
