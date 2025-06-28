@@ -123,7 +123,7 @@ const Navigation: React.FC = () => {
         <div className="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
           {/* Logo - Dynamic color based on menu state */}
           <div 
-            className={`text-2xl font-light tracking-[0.2em] transition-colors duration-300 cursor-pointer display-sans ${
+            className={`text-2xl font-medium tracking-[0.2em] transition-colors duration-300 cursor-pointer display-sans ${
               isMenuOpen ? 'text-white' : 'text-black'
             }`}
             onClick={() => scrollToSection('hero')}
